@@ -1,22 +1,28 @@
 import React, { Component } from "react"
 
 class Counter extends Component {
-    state = { 
-        count:0
-     } 
-    
     render() { 
         return (
             <>
-            <span style={{marginLeft:10, color:"white", borderRadius:10,backgroundColor:"blue", padding:3}} >{this.formatCount()}</span>
-            <button style={{marginTop:10, marginLeft:30, backgroundColor:"snow", padding:5, borderRadius:10}} >Increment</button>
+            <span className={this.classes()} >{this.format()}</span>
+            <button onClick={()=>this.props.handleIncrement(this.props.count)} className="btn btn-secondary btn-sm" >Increment</button>
+            <button onClick={()=>this.props.handleDelete(this.props.count.id)} className="btn btn-danger btn-sm m-2">Delete</button>
             </>
         );
         
     }
-    formatCount(){
-        {this.state.count==0&&"Zero"}
+    format(){
+       const {value} = this.props.count
+        return value===0?"Zero":value
+    } 
+
+    classes(){
+        let classes = "badge m-2 badge-";
+        classes+=(this.props.count.value===0)?"warning":"primary"
+        return classes
+        
     }
+   
 }
 
 export default Counter;
